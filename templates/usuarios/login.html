@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+
+{% block contenido %}
+
+    <h2>Iniciar Sesion</h2>
+    <form method = "post"> {% csrf_token %}
+
+        {{form.as_p}}
+
+        <button type ="submit" class="btn btn-success">Iniciar Sesion</button>
+
+
+    </form>
+    <a href="{% url 'usuarios:registrarse' %}"><button class="btn btn-success mt-2">Create Una Cuenta</button></a>
+
+    
+{% endblock contenido %}
+    
