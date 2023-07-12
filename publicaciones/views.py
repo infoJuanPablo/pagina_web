@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render
 from publicaciones.models import Publicaciones
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import CrearPublicacionForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -29,6 +29,8 @@ class VerPublicaciones(ListView):
         return consulta_anterior.order_by('fecha')
     
 
+
+# view que crea posteos
 class Postear(LoginRequiredMixin, CreateView):
     model = Publicaciones
     template_name = 'publicaciones/postear.html'
@@ -37,3 +39,21 @@ class Postear(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('publicaciones:publicaciones')
+
+
+
+# view que modifica posteos
+class EditarPost(LoginRequiredMixin, UpdateView):
+    model = Publicaciones
+    template_name = 'publicaciones/editar-post.html'
+    form_class = CrearPublicacionForm
+
+
+    def get_success_url(self):
+        return reverse('publicaciones:publicaciones')
+    
+
+# view que elimina publicacion
+
+class EliminarPost(DeleteView):
+    pass

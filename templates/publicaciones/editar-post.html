@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+
+{% block contenido %}
+    <h2>Editar Posteo</h2>
+    
+    <form method="post">{% csrf_token %}
+
+        {{form.as_p}}
+
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        
+
+    </form>
+
+
+{% endblock contenido %}
+    <h2>Editar Posteo</h2>
+    
+    <form action=""></form>
+
