@@ -1,5 +1,5 @@
 from django.db import models
-
+from usuarios.models import Usuario
 # Create your models here.
 #esta clase crea una tabla para guardar categorias
 class Categoria(models.Model):
@@ -23,6 +23,7 @@ class Publicaciones(models.Model):
     titulo = models.CharField(max_length=255)
     post = models.TextField()
     categoria = models.ForeignKey(Categoria, on_delete=models.SET_NULL, related_name= 'posteos', null=True)
+    creador = models.ForeignKey(Usuario, on_delete= models.CASCADE, related_name='posteos_usuario', default=1)
 
     def __str__(self):
         return self.titulo

@@ -32,6 +32,7 @@
           <p class="card-text">{{post.categoria}}</p>
           <a href="#" class="btn btn-success">Me Gusta</a>
           <a href="{% url 'publicaciones:editar-post' post.id %}" class="btn btn-success">Editar</a>
+          <a href="{% url 'publicaciones:eliminar-post' post.id %}" class="btn btn-danger">Eliminar Post</a>
         </div>
       </div>
 

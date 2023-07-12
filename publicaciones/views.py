@@ -39,6 +39,11 @@ class Postear(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('publicaciones:publicaciones')
+    
+    def form_valid(self, form):
+        f = form.save(commit= False)        # con evito que guarde el formulario antes de guardar
+        f.creador_id = self.request.user.id
+        return super().form_valid(f)
 
 
 
@@ -55,5 +60,11 @@ class EditarPost(LoginRequiredMixin, UpdateView):
 
 # view que elimina publicacion
 
-class EliminarPost(DeleteView):
-    pass
+class EliminarPost(LoginRequiredMixin,DeleteView):
+    model = Publicaciones
+    template_name = 'publicaciones/eliminar-post.html'
+    
+    def get_success_url(self):
+        return reverse('publicaciones:publicaciones')
+    
+    
