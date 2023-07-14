@@ -27,3 +27,16 @@ class Publicaciones(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+
+
+class Comentario(models.Model):
+    
+    fecha = models.DateField(auto_now_add=True)
+    post = models.ForeignKey(Publicaciones, on_delete=models.CASCADE, related_name='comentarios')
+    autor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='comentarios')
+    texto = models.TextField(null=True)
+
+    def __str__(self):
+        return self.post.titulo + '-' + self.autor.first_name
+

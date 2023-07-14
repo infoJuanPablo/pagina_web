@@ -1,8 +1,8 @@
-from typing import Any
+from typing import Any, Dict
 from django.shortcuts import render
 from publicaciones.models import Publicaciones
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .forms import CrearPublicacionForm
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from .forms import CrearPublicacionForm, ComentarioForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
@@ -68,3 +68,13 @@ class EliminarPost(LoginRequiredMixin,DeleteView):
         return reverse('publicaciones:publicaciones')
     
     
+
+class PostDetalle(DetailView):
+    template_name = 'publicaciones/detalle-post.html'
+    model = Publicaciones
+    context_object_name = 'post'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['formulario_comentario'] = ComentarioForm()
+        return context
