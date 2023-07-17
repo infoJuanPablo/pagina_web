@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 from .forms import CrearPublicacionForm, ComentarioForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
+from core.mixins import SuperusuarioAutorMixin
 # Create your views here.
 # pagina de publicaciones
 
@@ -48,7 +49,7 @@ class Postear(LoginRequiredMixin, CreateView):
 
 
 # view que modifica posteos
-class EditarPost(LoginRequiredMixin, UpdateView):
+class EditarPost(SuperusuarioAutorMixin,LoginRequiredMixin, UpdateView):
     model = Publicaciones
     template_name = 'publicaciones/editar-post.html'
     form_class = CrearPublicacionForm
@@ -60,7 +61,7 @@ class EditarPost(LoginRequiredMixin, UpdateView):
 
 # view que elimina publicacion
 
-class EliminarPost(LoginRequiredMixin,DeleteView):
+class EliminarPost(SuperusuarioAutorMixin,LoginRequiredMixin,DeleteView):
     model = Publicaciones
     template_name = 'publicaciones/eliminar-post.html'
     
@@ -78,3 +79,21 @@ class PostDetalle(DetailView):
         context = super().get_context_data(**kwargs)
         context['formulario_comentario'] = ComentarioForm()
         return context
+    
+    def post(self, request, *args, **kwargs):
+
+        publicacion = self.get_object()
+        form = ComentarioForm(request.POST)
+
+        if form.is_valid():
+            comentario = form.save(commit=False)
+            comentario.autor_id = self.request.user.id
+            comentario.post = publicacion
+            comentario.save()
+            return super().get(request)
+
+
+
+
+        else:
+            return super().get(request)

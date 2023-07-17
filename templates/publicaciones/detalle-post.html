@@ -14,6 +14,28 @@
         </div>
     </div>
 
+    <div class="comentarios-container">
+
+        <h2>Comentarios</h2>
+        
+        {% for comentario in post.comentarios.all %}
+            <div class="card">
+                <div class="card-body">
+                    <h6>{{comentario.autor.first_name}} {{comentario.autor.last_name}}</h6>
+                    <p>{{comentario.texto}}</p>
+                </div>
+            </div>
+        {% endfor %}
+            
+       
+
+
+
+    </div>
+
+
+
+
     <form method="post">{% csrf_token %}
         {{ formulario_comentario }}
 
