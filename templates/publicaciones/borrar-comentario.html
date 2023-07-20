@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+
+{% block contenido %}
+
+    <form method="post">{% csrf_token %}
+
+        <p>Eliminar Comentario</p>
+        <button type="submit" class="btn btn-success">Eliminar</button>
+
+
+
+    </form>
+    
+{% endblock contenido %}
+    

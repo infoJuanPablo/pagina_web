@@ -1,11 +1,12 @@
 from typing import Any, Dict
 from django.shortcuts import render
-from publicaciones.models import Publicaciones
+from publicaciones.models import Publicaciones, Comentario
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .forms import CrearPublicacionForm, ComentarioForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from core.mixins import SuperusuarioAutorMixin
+from core.mixins import SuperusuarioAutorMixin, ColaboradorMixin
+
 # Create your views here.
 # pagina de publicaciones
 
@@ -32,7 +33,7 @@ class VerPublicaciones(ListView):
 
 
 # view que crea posteos
-class Postear(LoginRequiredMixin, CreateView):
+class Postear(ColaboradorMixin, LoginRequiredMixin, CreateView):
     model = Publicaciones
     template_name = 'publicaciones/postear.html'
     form_class = CrearPublicacionForm
@@ -97,3 +98,12 @@ class PostDetalle(DetailView):
 
         else:
             return super().get(request)
+
+
+
+class BorrarComentarioView(SuperusuarioAutorMixin, LoginRequiredMixin, DeleteView):
+    model = Comentario
+    template_name = 'publicaciones/borrar-comentario.html'
+
+    def get_success_url(self):
+        return reverse('publicaciones:detalle-post', args = [self.object.post.id])

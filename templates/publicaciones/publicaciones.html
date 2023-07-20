@@ -8,7 +8,7 @@
     <h2>Publicaciones</h2>
     
     
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user.es_colaborador or user.is_superuser %}
 
     <a href="{% url 'publicaciones:postear' %}"><button type="submit" class="btn btn-success mt-3 m-5">Crear Post</button></a>
       
@@ -30,9 +30,27 @@
           <h5 class="card-title">{{post.titulo}}</h5>
           <p class="card-text">{{post.post}}</p>
           <p class="card-text">{{post.categoria}}</p>
+          <p class="card-text">{{post.creador}}</p>
           <a href="{% url 'publicaciones:detalle-post' post.id %}" class="btn btn-success">Ver Mas</a>
+
+
+          
+          {% if user.is_superuser or user == post.creador %}
+
           <a href="{% url 'publicaciones:editar-post' post.id %}" class="btn btn-success">Editar</a>
           <a href="{% url 'publicaciones:eliminar-post' post.id %}" class="btn btn-danger">Eliminar Post</a>
+            
+
+
+
+
+
+          {% endif %}
+            
+
+
+
+          
         </div>  
       </div>
 
