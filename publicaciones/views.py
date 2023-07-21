@@ -1,5 +1,5 @@
 from typing import Any, Dict
-from django.shortcuts import render
+from django.shortcuts import redirect
 from publicaciones.models import Publicaciones, Comentario
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .forms import CrearPublicacionForm, ComentarioForm
@@ -82,6 +82,9 @@ class PostDetalle(DetailView):
         return context
     
     def post(self, request, *args, **kwargs):
+        if not self.request.user.is_authenticated:
+            return redirect('usuarios:login')
+
 
         publicacion = self.get_object()
         form = ComentarioForm(request.POST)
