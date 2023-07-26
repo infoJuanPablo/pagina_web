@@ -5,7 +5,56 @@
 
 
 {% block contenido %}
-    <h2>Publicaciones</h2>
+<center>
+<div class="post-container">
+
+  <form method="get">
+    <select name="categoria" id="">
+      <option value="">Todas</option>
+      {% for categoria in categorias %}
+        
+      <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+
+      {% endfor %}
+
+    </select>
+
+
+    <select name="Ordenar" id="">
+      <option value="">Ordenar por</option>
+      <option value="fecha_asc">Fecha ascendente</option>
+      <option value="fecha_desc">Fecha descendente</option>
+      <option value="alf_asc">Alfabeticamente ascendente</option>
+      <option value="alf_desc">Alfabeticamente descendente</option>
+
+
+
+    </select>
+
+
+
+
+      <button type="submit">Filtrar</button>
+      
+    </center>
+        
+       
+
+
+
+    
+
+
+
+
+
+  </form>  
+
+
+
+
+
+    <h2><center>Publicaciones</center></h2>
     
     
     {% if user.is_authenticated and user.es_colaborador or user.is_superuser %}
@@ -58,7 +107,7 @@
       {% endfor %}
 
 
-        
+</div>
     
 {% endblock contenido %}
     
