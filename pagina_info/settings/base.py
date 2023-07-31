@@ -35,9 +35,9 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 SECRET_KEY = 'django-insecure-9uc3dgy3ok+ul4_ut=d+)&bw-sommlos284$&k_-$#i#2s7^65'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['jpkatona.pythonanywhere.com']
 
 
 # Application definition
@@ -69,7 +69,7 @@ ROOT_URLCONF = 'pagina_info.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +85,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pagina_info.wsgi.application'
 
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Password validation
