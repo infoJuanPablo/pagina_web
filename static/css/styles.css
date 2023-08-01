@@ -7,3 +7,8 @@ h2{
     color: rgb(73, 165, 42);
     
 }
+
+html, body {
+    height: 100%;
+    background-color: #F5F5F5;
+}
