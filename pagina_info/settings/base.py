@@ -35,9 +35,9 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 SECRET_KEY = 'django-insecure-9uc3dgy3ok+ul4_ut=d+)&bw-sommlos284$&k_-$#i#2s7^65'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['jpkatona.pythonanywhere.com']
+DEBUG = True
+ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = ['jpkatona.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
